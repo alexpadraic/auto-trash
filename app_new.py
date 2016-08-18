@@ -15,7 +15,7 @@ from class_list import class_dictionary
 motor_delay = 0.001
 
 # Half-step sequence for smooth motion
-seq = [ [1,0,0,0],
+sequence = [ [1,0,0,0],
         [1,1,0,0],
         [0,1,0,0],
         [0,1,1,0],
@@ -70,7 +70,7 @@ def ClickPicture():
     camera.resolution = (1024,768)
     camera.start_preview()
 
-    time.sleep(0.5)
+    time.sleep(1)
 
     image_name = date + '_' + '_img.jpg'
     print image_name
@@ -87,7 +87,7 @@ def RunMotor():
   for i in range(256): # running motor (512) steps in one revolution
         for halfstep in range(8): # 8 steps in each cycle
             for pin in range(4): # 4 plates
-                GPIO.output(step_pins[pin], seq[halfstep][pin]) # activate the pins
+                GPIO.output(step_pins[pin], sequence[halfstep][pin]) # activate the pins
             time.sleep(motor_delay) # delay between each step
 
 
@@ -98,7 +98,7 @@ def SetPins():
         GPIO.output(pin, False)
 
 
-def CounterClockwise():
+def CounterClockwise(): 
     GPIO.cleanup(); # cleaning up in case GPIOS have been preactivated
     GPIO.setmode(GPIO.BCM); # use BCM GPIO references instead of physical pin numbers
     SetPins(); # set all pins as output
@@ -107,7 +107,7 @@ def CounterClockwise():
 
 
 def ClockWise():
-    seq.reverse() # reverse the sequence direction
+    sequence.reverse() # reverse the sequence direction
     CounterClockwise() # calls the same function, just in reverse
 
 
