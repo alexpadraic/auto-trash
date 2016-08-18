@@ -2,16 +2,17 @@
 
 # import required libs and functions
 import time
-import RPi.GPIO as GPIO
-from picamera import PiCamera
-import os
 import calendar
 import datetime
+import os
+import RPi.GPIO as GPIO
+from picamera import PiCamera
 from classify_image import run_inference_on_image
 from class_list import class_dictionary
 
-os.chdir('/home/pi/Pictures')
-camera = PiCamera()
+## SET UP VARIABLES
+# Sets the amount of time between each step on the motor (in seconds)
+motor_delay = 0.001
 
 # Half-step sequence for smooth motion
 seq = [ [1,0,0,0],
@@ -25,7 +26,14 @@ seq = [ [1,0,0,0],
       ]
 
 # Sets up the pins for each of the plates in the motor
-StepPins = [17,18,21,22] # be sure you are setting pins accordingly GPIO17,GPIO18,GPIO21,GPI22
+step_pins = [17,18,21,22] # be sure you are setting pins accordingly GPIO17,GPIO18,GPIO21,GPI22
+first_pin = step_pins[0]
+
+# sets directory of saved images
+photo_depot = '/home/pi/Pictures'
+os.chdir(photo_depot)
+camera = PiCamera()
+
 
 
 def predict_top_5(image_url):
@@ -33,21 +41,13 @@ def predict_top_5(image_url):
     return run_inference_on_image(image_url)
 
 
-def top_prediction_tuple(predictions_list):
-    return predictions_list[0]
-
-
 def top_prediction_name(prediction):
     return prediction[0]
 
 
-def top_prediction_number(prediction):
-    return prediction[1]
-
-
 def what_is_it(image_name):
     print "Setting variable for image filepath..."
-    image_path = '/home/pi/Pictures/' + image_name
+    image_path = photo_depot + image_name
 
     print "Pulling-out the top 5 matched results..."
     top_5 = predict_top_5(image_path)
@@ -89,13 +89,13 @@ def RunMotor():
   for i in range(512): # running motor (512) steps in one revolution
         for halfstep in range(8): # 8 steps in each cycle
             for pin in range(4): # 4 plates
-                GPIO.output(StepPins[pin], seq[halfstep][pin]) # activate the pins
-            time.sleep(0.001) # delay between each step
+                GPIO.output(step_pins[pin], seq[halfstep][pin]) # activate the pins
+            time.sleep(motor_delay) # delay between each step
 
 
 def SetPins():
     # Set all pins as output
-    for pin in StepPins:
+    for pin in step_pins:
         GPIO.setup(pin,GPIO.OUT)
         GPIO.output(pin, False)
 
@@ -112,22 +112,22 @@ def ClockWise():
     seq.reverse() # reverse the sequence direction
     CounterClockwise() # calls the same function, just in reverse
 
-def MasterFunction():
 
+def MasterFunction():
     print "HELLO - WELCOME TO CERBERUS"
 
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup(17, GPIO.IN)
-    i=GPIO.input(17)
+    GPIO.setup(first_pin, GPIO.IN)
 
-    if i==0:
+    i = GPIO.input(first_pin)
+
+    if i == 0:
         print 'No Intruders'
         time.sleep(2)
 
-    elif i==1:
+    elif i == 1:
         print 'Intruder Detected'
-
         image_name = ClickPicture();
         trash_type = what_is_it(image_name)
         print trash_type
@@ -145,4 +145,4 @@ def MasterFunction():
 
 
 while True:
-  MasterFunction()
+    MasterFunction()
