@@ -1066,7 +1066,7 @@ def CounterClockwise():
  
 # be sure you are setting pins accordingly
 # GPIO10,GPIO9,GPIO11,GPI25
-  StepPins = [17,18,21,22]
+  StepPins = [27,18,21,22]
  
 # Set all pins as output
   for pin in StepPins:
@@ -1125,11 +1125,9 @@ def MasterFunction():
       if trash_type == "r":
         ClockWise();
         time.sleep(1)
-        CounterClockwise();
       else:
         CounterClockwise();
         time.sleep(1)
-        ClockWise();
       del image_name
 
 
