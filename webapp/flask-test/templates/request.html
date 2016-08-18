@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+          rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">How To Manage JSON Requests</h3>
+      </div>
+      <hr/>
+      <div>
+      This is the JSON data, as a string:<br />
+      <pre>{{jsondata}}</pre>
+      This is the JSON data, as an array of objects:<br />
+      <ul>
+      {% for item in data %}
+        <li>{{item.id}}: {{item.type}}</li>
+      {% endfor %}
+    </ul>
+      </div>
+      <div class="header">
+        <h3 class="text-muted">Code to manage a JSON Request</h3>
+      </div>
+      <hr/>
+<pre>
+@app.route('/request', methods=['POST'])
+def jsonreq():
+    # Get the JSON data sent from the form
+    jsondata = request.form['jsondata']
+    # Convert the JSON data into a Python structure
+    data = json.loads(jsondata)
+    return render_template('request.html', data=data, jsondata=jsondata)
+</pre>
+      </div>
+    </div>
+  </body>
+</html>

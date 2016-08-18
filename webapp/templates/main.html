@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-   <head>
-      <title>{{ title }}</title>
-      <link href="https://fonts.googleapis.com/css?family=Orbitron:700" rel="stylesheet">
-   </head>
+<head>
+  <title>{{ title }}</title>
+  <link href="https://fonts.googleapis.com/css?family=Orbitron:700" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./main.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  $(window).load(function() {
+    $(".loader").fadeOut("slow");
+  })
+  </script>
+</head>
 
-   <body style="background-color:#99ccff">
-      <h1 style="height:auto;display:block;text-align:center;font-family: 'Orbitron', sans-serif;font-size: 3em;">CERBERUS</h1>
-      <a href="/analyze" style="display:inline-block;width:100%;height:auto;text-align:center;"><img style="width:100%;height:auto;" src="http://img15.deviantart.net/819b/i/2015/112/6/6/cerberus_emblem_by_kira_the_huntress-d7ms93l.png"></a>
-      <!-- <h2>The date and time on the server is: {{ time }}</h2> -->
-   </body>
+<body style="background-color:#99ccff">
+  <h1 class="title">CERBERUS</h1>
+
+  <a href="/display" class="cerberuslink">
+    <div class="cerberus-logo"></div>
+  </a>
+
+  <!-- <div class="loader"></div> -->
+  <!-- <h2>The date and time on the server is: {{ time }}</h2> -->
+</body>
 </html>
