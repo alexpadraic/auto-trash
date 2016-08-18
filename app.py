@@ -1,6 +1,6 @@
 from time import sleep
 #!/usr/bin/env python
- 
+
 # import required libs
 import time
 import RPi.GPIO as GPIO
@@ -1027,7 +1027,7 @@ def top_prediction_name(prediction):
 
 def top_prediction_number(prediction):
   return prediction[1]
-      
+
 def what_the_fuck_is_it(image_name):
   print "line 1"
   image_path = '/home/pi/Pictures/' + image_name
@@ -1054,20 +1054,20 @@ def ClickPictures():
   camera.stop_preview()
   GPIO.cleanup()
   return image_name
-  
+
 
 def CounterClockwise():
-  
+
   GPIO.cleanup() #cleaning up in case GPIOS have been preactivated
- 
+
 # Use BCM GPIO references
 # instead of physical pin numbers
   GPIO.setmode(GPIO.BCM)
- 
+
 # be sure you are setting pins accordingly
 # GPIO10,GPIO9,GPIO11,GPI25
-  StepPins = [17,18,21,22]
- 
+  StepPins = [27,18,21,22]
+
 # Set all pins as output
   for pin in StepPins:
       GPIO.setup(pin,GPIO.OUT)
@@ -1085,20 +1085,20 @@ def CounterClockwise():
 def ClockWise():
 
   GPIO.cleanup() #cleaning up in case GPIOS have been preactivated
- 
+
 # Use BCM GPIO references
 # instead of physical pin numbers
   GPIO.setmode(GPIO.BCM)
- 
+
 # be sure you are setting pins accordingly
 # GPIO10,GPIO9,GPIO11,GPI25
   StepPins = [27,18,21,22]
- 
+
 # Set all pins as output
   for pin in StepPins:
       GPIO.setup(pin,GPIO.OUT)
       GPIO.output(pin, False)
-      
+
   seq = [ [1,0,0,0],[1,1,0,0],[0,1,0,0],[0,1,1,0],[0,0,1,0],[0,0,1,1],[0,0,0,1],[1,0,0,1] ]
   seq.reverse()
   for i in range(512):
@@ -1135,13 +1135,9 @@ def MasterFunction():
 
 while True:
   MasterFunction()
- 
+
 
 
 ##ClickPictures();
 ##CounterClockwise();
 ##ClockWise();
-
-
-  
-    
