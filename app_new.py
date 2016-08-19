@@ -37,7 +37,7 @@ class_dictionary = class_dictionary();
 
 
 def predict_top_5(image_url):
-    print("Predict top 5")
+    print("Predicting top 5...")
     return run_inference_on_image(image_url)
 
 
@@ -51,12 +51,14 @@ def what_is_it(image_name):
 
     print "Pulling-out the top 5 matched results..."
     top_5 = predict_top_5(image_path)
+    print top_5
 
     print "Pulling-out the top class..."
     top = top_5[4]
 
     print "Pulling-out the top class name..."
     top_name = top[0]
+    print "THE OBJECT WAS: " + top_name
 
     if class_dictionary[top_name] == 'c':
         return 'c'
@@ -73,7 +75,6 @@ def ClickPicture():
     time.sleep(1)
 
     image_name = date + '_' + '_img.jpg'
-    print image_name
 
     camera.capture(image_name)
     camera.stop_preview()
@@ -109,6 +110,7 @@ def CounterClockwise():
 def ClockWise():
     sequence.reverse() # reverse the sequence direction
     CounterClockwise() # calls the same function, just in reverse
+    sequence.reverse()
 
 
 def MasterFunction():
