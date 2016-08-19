@@ -18,7 +18,8 @@ def predict_top_5(image_url):
 	return run_inference_on_image(image_url)
 
 def top_prediction_tuple(predictions_list):
-	return predictions_list[0]
+	return predictions_list[4]
+	print predictions_list[4]
 
 def top_prediction_name(prediction):
 	return prediction[0]

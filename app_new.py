@@ -15,7 +15,7 @@ from class_list import class_dictionary
 motor_delay = 0.001
 
 # Half-step sequence for smooth motion
-seq = [ [1,0,0,0],
+sequence = [ [1,0,0,0],
         [1,1,0,0],
         [0,1,0,0],
         [0,1,1,0],
@@ -30,18 +30,19 @@ step_pins = [27,18,21,22] # be sure you are setting pins accordingly (for this s
 pir_pin = 17
 
 # set path of saved images directory
-photo_depot = '/home/pi/Pictures'
+photo_depot = '/home/pi/Pictures/'
 os.chdir(photo_depot)
 camera = PiCamera()
+class_dictionary = class_dictionary();
 
 
 def predict_top_5(image_url):
-    print("Predict top 5")
+    print("Predicting top 5...")
     return run_inference_on_image(image_url)
 
 
 def top_prediction_name(prediction):
-    return prediction[0]
+    return prediction[4]
 
 
 def what_is_it(image_name):
@@ -50,14 +51,14 @@ def what_is_it(image_name):
 
     print "Pulling-out the top 5 matched results..."
     top_5 = predict_top_5(image_path)
+    print top_5
 
     print "Pulling-out the top class..."
-    top = top_5[0]
+    top = top_5[4]
 
     print "Pulling-out the top class name..."
     top_name = top[0]
-
-    class_dictionary = class_dictionary();
+    print "THE OBJECT WAS: " + top_name
 
     if class_dictionary[top_name] == 'c':
         return 'c'
@@ -71,10 +72,9 @@ def ClickPicture():
     camera.resolution = (1024,768)
     camera.start_preview()
 
-    time.sleep(0.5)
+    time.sleep(1)
 
     image_name = date + '_' + '_img.jpg'
-    print image_name
 
     camera.capture(image_name)
     camera.stop_preview()
@@ -85,10 +85,10 @@ def ClickPicture():
 
 
 def RunMotor():
-  for i in range(512): # running motor (512) steps in one revolution
+  for i in range(256): # running motor (512) steps in one revolution
         for halfstep in range(8): # 8 steps in each cycle
             for pin in range(4): # 4 plates
-                GPIO.output(step_pins[pin], seq[halfstep][pin]) # activate the pins
+                GPIO.output(step_pins[pin], sequence[halfstep][pin]) # activate the pins
             time.sleep(motor_delay) # delay between each step
 
 
@@ -99,7 +99,7 @@ def SetPins():
         GPIO.output(pin, False)
 
 
-def CounterClockwise():
+def CounterClockwise(): 
     GPIO.cleanup(); # cleaning up in case GPIOS have been preactivated
     GPIO.setmode(GPIO.BCM); # use BCM GPIO references instead of physical pin numbers
     SetPins(); # set all pins as output
@@ -108,8 +108,9 @@ def CounterClockwise():
 
 
 def ClockWise():
-    seq.reverse() # reverse the sequence direction
+    sequence.reverse() # reverse the sequence direction
     CounterClockwise() # calls the same function, just in reverse
+    sequence.reverse()
 
 
 def MasterFunction():

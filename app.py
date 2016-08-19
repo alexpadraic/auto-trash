@@ -1020,10 +1020,11 @@ def predict_top_5(image_url):
   return run_inference_on_image(image_url)
 
 def top_prediction_tuple(predictions_list):
-  return predictions_list[0]
+  print predictions_list[4]
+  return predictions_list[4]
 
 def top_prediction_name(prediction):
-  return prediction[0]
+  return prediction[4]
 
 def top_prediction_number(prediction):
   return prediction[1]
@@ -1033,8 +1034,9 @@ def what_the_fuck_is_it(image_name):
   image_path = '/home/pi/Pictures/' + image_name
   print "line 2"
   top_5 = predict_top_5(image_path)
+  print top_5
   print "line 3"
-  top = top_5[0]
+  top = top_5[4]
   print "line 4"
   top_name = top[0]
 
@@ -1067,7 +1069,6 @@ def CounterClockwise():
 # be sure you are setting pins accordingly
 # GPIO10,GPIO9,GPIO11,GPI25
   StepPins = [27,18,21,22]
-
 # Set all pins as output
   for pin in StepPins:
       GPIO.setup(pin,GPIO.OUT)
@@ -1125,11 +1126,9 @@ def MasterFunction():
       if trash_type == "r":
         ClockWise();
         time.sleep(1)
-        CounterClockwise();
       else:
         CounterClockwise();
         time.sleep(1)
-        ClockWise();
       del image_name
 
 
