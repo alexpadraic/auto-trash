@@ -19,4 +19,4 @@ The final product uses an arduino infrared sensor to detect an object has been p
 
 ### DEMO
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/AzB-CW20QYA" frameborder="0" allowfullscreen></iframe>
+See demo video here: https://youtu.be/AzB-CW20QYA
