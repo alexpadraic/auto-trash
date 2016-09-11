@@ -60,6 +60,7 @@ def what_is_it(image_name):
     print "THE OBJECT WAS: " + top_name
 
     if class_dictionary[top_name] == 'c':
+
         return 'c'
     else:
         return 'r'
@@ -84,7 +85,7 @@ def ClickPicture():
 
 
 def RunMotor():
-  for i in range(256): # running motor (512) steps in one revolution
+  for i in range(256): # running motor (256) steps in one revolution
         for halfstep in range(8): # 8 steps in each cycle
             for pin in range(4): # 4 plates
                 GPIO.output(step_pins[pin], sequence[halfstep][pin]) # activate the pins
@@ -147,3 +148,19 @@ def MasterFunction():
 
 while True:
     MasterFunction()
+
+
+# # webapp
+# from flask import Flask, jsonify, render_template, request
+
+# app = Flask(__name__)
+
+# @app.route('/display', methods=['POST'])
+# def display():
+#     obj_name = top_name
+#     obj_type = class_dictionary[top_name]
+#     return jsonify(results=[obj_name, obj_type])
+
+# @app.route('/')
+# def main():
+#     return render_template('index.html')
