@@ -1,0 +1,2 @@
+# autotrash
+Automate your trash
