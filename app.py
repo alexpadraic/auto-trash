@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 # import required libs and functions
-from flask import Flask, render_template
-app = Flask(__name__)
 import time
 import calendar
 import datetime
