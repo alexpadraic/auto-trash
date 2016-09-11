@@ -1,0 +1,34 @@
+.title {
+  height:auto;
+  display:block;
+  text-align:center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3em;
+}
+
+.cerberus-link {
+  display:inline-block;
+  width:100%;
+  height:auto;
+  text-align:center;
+}
+
+.cerberus-logo {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url('../../public/images/cerberus.png') 50% 50% no-repeat #99ccff;
+}
+
+.loader {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url('../../public/images/page-loader.gif') 50% 50% no-repeat #99ccff;
+}
