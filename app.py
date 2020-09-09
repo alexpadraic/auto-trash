@@ -60,10 +60,6 @@ def what_is_it(image_name):
     print "THE OBJECT WAS: " + top_name
 
     if class_dictionary[top_name] == 'c':
-<<<<<<< HEAD
-
-=======
->>>>>>> abb619bc169ab5fe281bc988c2bdb0b6c04768ca
         return 'c'
     else:
         return 'r'
@@ -88,11 +84,7 @@ def ClickPicture():
 
 
 def RunMotor():
-<<<<<<< HEAD
   for i in range(256): # running motor (256) steps in one revolution
-=======
-  for i in range(256): # running motor (512) steps in one revolution
->>>>>>> abb619bc169ab5fe281bc988c2bdb0b6c04768ca
         for halfstep in range(8): # 8 steps in each cycle
             for pin in range(4): # 4 plates
                 GPIO.output(step_pins[pin], sequence[halfstep][pin]) # activate the pins
